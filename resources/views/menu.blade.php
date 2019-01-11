@@ -5,16 +5,16 @@
                 <a href='/'>Index</a> 
             </li>
             <li>
-                <a href='/createInvoice'>Create Invoice</a>
+                <a href='/InvoiceHeader/create'>Create Invoice</a>
             </li>
             <li>
-                <a href='/viewInvoices'>View Invoices</a>
+                <a href='/InvoiceHeader'>View Invoices</a>
             </li>
             <li>
                 <a href='/maintainClients'>Maintain Clients</a> 
             </li>
             <li>
-                <a href='/maintainStatus'>Maintain Statuses</a> 
+                <a href='/InvoiceStatuses'>Maintain Statuses</a> 
             </li>
         </ul>
     </div>
