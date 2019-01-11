@@ -27,6 +27,6 @@ class InvoiceStatus extends Model {
      *
      * @var array
      */
-    protected $primaryKey = ['status_id'];
+    protected $primaryKey = 'status_id';
 
 }

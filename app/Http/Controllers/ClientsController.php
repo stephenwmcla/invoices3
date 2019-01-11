@@ -35,7 +35,7 @@ class ClientsController extends Controller {
      * @return Response
      */
     public function store() {
-        
+
         $validated = $request->validated();
         if ($validated) {
             echo "form looks good";
@@ -73,8 +73,22 @@ class ClientsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        echo "update $id";
+    public function update(Request $request, $id) {
+
+        $clients = Client::find($id);
+        $clients->client_name = $request->client_name;
+        $clients->address_1 = $request->address_1;
+        $clients->address_2 = $request->address_2;
+        $clients->address_3 = $request->address_3;
+        $clients->county = $request->county;
+        $clients->postcode = $request->postcode;
+        $clients->client_contact = $request->client_contact;
+        $clients->invoice_prefix = $request->invoice_prefix;
+        $clients->next_invoice_no = $request->next_invoice_no;
+        $clients->save();
+
+//        Session::flash('message', 'Status Updated');
+        return redirect('/Clients/');
     }
 
     /**

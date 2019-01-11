@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\InvoiceStatus;
 use App\Http\Requests\CreateInvoiceStatusRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class InvoiceStatusController extends Controller {
 
@@ -40,8 +41,8 @@ class InvoiceStatusController extends Controller {
         $invoiceStatus->status_description = $request->status_description;
         $invoiceStatus->save();
 
-        Session::flash('message', 'Status Created');
-        return Redirect::to('InvoiceStatuses');
+//        Session::flash('message', 'Status Created');
+        return redirect('/InvoiceStatuses');
     }
 
     /**
@@ -61,9 +62,9 @@ class InvoiceStatusController extends Controller {
      * @return Response
      */
     public function edit($id) {
+
         $invoiceStatus = InvoiceStatus::find($id);
-        return View('InvoiceStatus.edit', array('invoice_status' => $invoiceStatus));
-        
+        return View('InvoiceStatuses.edit', array('invoiceStatus' => $invoiceStatus));
     }
 
     /**
@@ -72,8 +73,14 @@ class InvoiceStatusController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update(Request $request, $id) {
+
+        $invoiceStatus = InvoiceStatus::find($id);
+        $invoiceStatus->status_description = $request->status_description;
+        $invoiceStatus->save();
+
+//        Session::flash('message', 'Status Updated');
+        return redirect('/InvoiceStatuses/');
     }
 
     /**
@@ -83,7 +90,10 @@ class InvoiceStatusController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        $invoiceStatus = InvoiceStatus::find($id);
+        $invoiceStatus->delete();
+        return redirect('/InvoiceStatuses')->with('success','The record has been deleted');
+        
     }
 
 }

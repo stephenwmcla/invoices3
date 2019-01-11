@@ -9,7 +9,7 @@
 @endif
 <fieldset><legend>Status</legend>
     {!! Form::model($invoiceStatus, array('route' => array('InvoiceStatuses.update', $invoiceStatus->status_id), 'method' => 'PUT')) !!}
-    @include('displayField', ['fieldName' => 'status_id', 'fieldDesc' => 'Status ID'])
+    @include('displayField', ['fieldName' => $invoiceStatus->status_id, 'fieldDesc' => 'Status ID'])
     @include('field', ['fieldName' => 'status_description', 'fieldDesc' => 'Description'])
     <?php echo Form::submit('Submit'); ?>
     {!! Form::close() !!}

@@ -13,8 +13,12 @@
     <tr>
         <td>{{ $invoiceStatusLine->status_id }}</td>
         <td>{{ $invoiceStatusLine->status_description }}</td>
-        <td><a href='InvoiceStatuses/{{ $invoiceStatusLine->status_id }}/edit'>Edit</td>
-        <td><a href='InvoiceStatuses/{{ $invoiceStatusLine->status_id }}/destroy'>Delete</td>
+        <td><a href='/InvoiceStatuses/{{ $invoiceStatusLine->status_id }}/edit'>Edit</td>
+        <td>
+        {!! Form::open(array('url' => '/InvoiceStatuses/' . $invoiceStatusLine->status_id)) !!}
+                    {!! Form::hidden('_method', 'DELETE') !!}
+                    {!! Form::submit('Delete') !!}
+                    {!! Form::close() !!}</td>
     </tr>
     @endforeach
 </table>
