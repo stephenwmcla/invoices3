@@ -2,9 +2,7 @@
 
 use App\InvoiceHeader;
 use App\Client;
-use App\InvoiceStatus;
 use App\Http\Requests\CreateInvoiceHeaderRequest;
-use App\Http\Requests\CreateInvoiceStatusRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,29 +46,7 @@ Route::get('createInvoice', function() {
     return View::make('createInvoice')->with('clients', $clients);
 });
 
-Route::get('maintainStatus', function() {
-    $invoiceStatus = InvoiceStatus::all();
-    return View::make('ViewInvoiceStatus')->with('invoiceStatus', $invoiceStatus);
-});
-
-Route::get('maintainStatus/create', function() {
-//    $invoiceStatus = InvoiceStatus::all();
-    return View::make('maintainInvoiceStatus');
-});
-
-Route::post('maintainInvoiceStatus/store', function(CreateInvoiceStatusRequest $request) {
-    
-    // handle insert or update
-    $validated = $request->validated();
-    if ($validated) {
-        echo "form looks good";
-    } else {
-        echo "form not so good";
-    }
-    $link = tap(new App\Link($data))->save();
-
-    return redirect('/');
-});
+Route::resource('InvoiceStatuses','InvoiceStatusController');
 
 Route::post('createInvoice/submit', function(CreateInvoiceHeaderRequest $request) {
     
