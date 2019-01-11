@@ -11,7 +11,7 @@
                 <a href='/InvoiceHeader'>View Invoices</a>
             </li>
             <li>
-                <a href='/maintainClients'>Maintain Clients</a> 
+                <a href='/Clients'>Maintain Clients</a> 
             </li>
             <li>
                 <a href='/InvoiceStatuses'>Maintain Statuses</a> 

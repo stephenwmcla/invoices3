@@ -8,11 +8,7 @@
 </div>
 @endif
 <fieldset><legend>Clients</legend>
-    <?php if (isset($invoiceStatus)) { ?>
-        {!! Form::model($invoiceStatus, array('url' => 'InvoiceStatuses/store')) !!}
-    <?php } else { ?>
-        {!! Form::open(array('url' => 'InvoiceStatuses/store')) !!}
-    <?php } ?>
+    {!! Form::open(array('url' => 'InvoiceStatuses.store')) !!}
     @include('field', ['fieldName' => 'status_id', 'fieldDesc' => 'Status ID'])
     @include('field', ['fieldName' => 'status_description', 'fieldDesc' => 'Description'])
     <?php echo Form::submit('Submit'); ?>

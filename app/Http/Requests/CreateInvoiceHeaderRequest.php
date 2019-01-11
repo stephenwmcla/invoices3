@@ -22,9 +22,7 @@ class CreateInvoiceHeaderRequest extends Request {
      */
     public function rules() {
         return [
-            'client_id' => 'required|exists:clients,client_id',
-            'invoice_name' => 'required|max:45',
-            'invoice_amount' => 'required|max:45|numeric',
+            'invoice_amount' => 'required|min:1|max:99999|numeric',
             'invoice_date' => 'required|date',
         ];
     }
@@ -32,7 +30,7 @@ class CreateInvoiceHeaderRequest extends Request {
     public function messages() {
         return [
             'client_id.required' => 'Client Required',
-            'invoice_name.required' => 'Invoice Name Required',
+            'invoice_number.required' => 'Invoice Number Required',
             'invoice_amount.required' => 'Please Enter an Invoice Amount',
             'invoice_date.required' => 'Please Enter an Invoice Date',
         ];

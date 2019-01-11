@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests;
-//use App\Http\Controllers\Controller;
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use App\InvoiceStatus;
-//use App\Http\Requests\CreateInvoiceStatusRequest;
+use App\Http\Requests\CreateInvoiceStatusRequest;
 
 class InvoiceStatusController extends Controller {
 
@@ -17,7 +17,7 @@ class InvoiceStatusController extends Controller {
      */
     public function index() {
         $invoiceStatus = InvoiceStatus::all();
-        return View::make('InvoiceStatuses.index')->with('invoiceStatus', $invoiceStatus);
+        return View('InvoiceStatuses.index', array('invoiceStatus' => $invoiceStatus));
     }
 
     /**
@@ -26,7 +26,7 @@ class InvoiceStatusController extends Controller {
      * @return Response
      */
     public function create() {
-        return View::make('InvoiceStatuses.create');
+        return view('InvoiceStatuses.create');
     }
 
     /**
@@ -34,16 +34,14 @@ class InvoiceStatusController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        $validated = $request->validate();
-        if ($validated->fails()) {
-            echo "form not so good";
-        } else {
-            echo "form looks good";
-        }
-        $link = tap(new App\Link($data))->save();
+    public function store(CreateInvoiceStatusRequest $request) {
+        $invoiceStatus = new InvoiceStatus;
+        $invoiceStatus->status_id = $request->status_id;
+        $invoiceStatus->status_description = $request->status_description;
+        $invoiceStatus->save();
 
-        return redirect('/');
+        Session::flash('message', 'Status Created');
+        return Redirect::to('InvoiceStatuses');
     }
 
     /**
@@ -63,7 +61,9 @@ class InvoiceStatusController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        $invoiceStatus = InvoiceStatus::find($id);
+        return View('InvoiceStatus.edit', array('invoice_status' => $invoiceStatus));
+        
     }
 
     /**

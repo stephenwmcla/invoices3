@@ -1,7 +1,6 @@
 <?php
 
 use App\InvoiceHeader;
-use App\Client;
 use App\Http\Requests\CreateInvoiceHeaderRequest;
 
 /*
@@ -19,47 +18,11 @@ Route::get('/', function() {
     return View::make('main');
 });
 
-Route::get('viewInvoices', function() {
-    $invoiceHeader = InvoiceHeader::all();
-    return View::make('viewInvoices')->with('invoiceHeader', $invoiceHeader);
-});
-
-Route::get('maintainClients', function() {
-    $clients = Client::all();
-    return View::make('viewClients')->with('clients', $clients);
-});
-
-Route::get('maintainClients/edit/{client_id}', function($client_id) {
-    
-    $client = Client::find($client_id);
-    return View::make('maintainClients')->with('client', $client);
-});
-
-Route::post('maintainClients/update/{client_id}', function($client_id) {
-    
-    $clients = Client::find($client_id);
-    return View::make('maintainClients')->with('clients', $clients);
-});
-
-Route::get('createInvoice', function() {
-    $clients = Client::lists('client_name','client_id');
-    return View::make('createInvoice')->with('clients', $clients);
-});
+Route::resource('InvoiceHeader', 'InvoiceHeaderController');
 
 Route::resource('InvoiceStatuses','InvoiceStatusController');
 
-Route::post('createInvoice/submit', function(CreateInvoiceHeaderRequest $request) {
-    
-    $validated = $request->validated();
-    if ($validated) {
-        echo "form looks good";
-    } else {
-        echo "form not so good";
-    }
-    $link = tap(new App\Link($data))->save();
-
-    return redirect('/');
-});
+Route::resource('Clients','ClientsController');
 
 
 Route::controllers([
