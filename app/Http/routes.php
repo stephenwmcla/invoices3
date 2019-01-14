@@ -18,7 +18,7 @@ Route::get('/', function() {
     return View::make('main');
 });
 
-Route::resource('InvoiceHeader', 'InvoiceHeaderController');
+Route::resource('InvoiceHeaders', 'InvoiceHeaderController');
 
 Route::resource('InvoiceStatuses','InvoiceStatusController');
 

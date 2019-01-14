@@ -5,10 +5,10 @@
                 <a href='/'>Index</a> 
             </li>
             <li>
-                <a href='/InvoiceHeader/create'>Create Invoice</a>
+                <a href='/InvoiceHeaders/create'>Create Invoice</a>
             </li>
             <li>
-                <a href='/InvoiceHeader'>View Invoices</a>
+                <a href='/InvoiceHeaders'>View Invoices</a>
             </li>
             <li>
                 <a href='/Clients'>Maintain Clients</a> 

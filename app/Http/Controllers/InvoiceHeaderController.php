@@ -37,7 +37,7 @@ class InvoiceHeaderController extends Controller {
      */
     public function index() {
         $invoiceHeader = InvoiceHeader::all();
-        return View('InvoiceHeader.index', array('invoiceHeader' => $invoiceHeader));
+        return View('InvoiceHeaders.index', array('invoiceHeader' => $invoiceHeader));
     }
 
     /**
@@ -47,7 +47,7 @@ class InvoiceHeaderController extends Controller {
      */
     public function create() {
         $clients = Client::lists('client_name', 'client_id');
-        return view('InvoiceHeader.create', array('clients' => $clients));
+        return view('InvoiceHeaders.create', array('clients' => $clients));
     }
 
     /**
@@ -69,7 +69,7 @@ class InvoiceHeaderController extends Controller {
         $clients->save();
         
         Session::flash('message', 'Invoice raised');
-        return Redirect::to('InvoiceHeader');
+        return Redirect::to('/InvoiceHeaders/');
     }
 
     /**
@@ -80,6 +80,9 @@ class InvoiceHeaderController extends Controller {
      */
     public function show($id) {
         //
+        //view the invoice pdf here
+        $invoiceHeader = InvoiceHeader::find($id);
+        return View('InvoiceHeaders.show', array('invoiceHeader' => $invoiceHeader));
     }
 
     /**
@@ -89,7 +92,9 @@ class InvoiceHeaderController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        $invoiceHeader = InvoiceHeader::find($id);
+        $clients = Client::lists('client_name', 'client_id');
+        return View('InvoiceHeaders.edit', array('invoiceHeader' => $invoiceHeader, 'clients' => $clients));
     }
 
     /**
@@ -98,8 +103,16 @@ class InvoiceHeaderController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update(Request $request, $id) {
+
+        $invoiceHeader = InvoiceHeader::find($id);
+        $invoiceHeader->client_id = $request->client_id;
+        $invoiceHeader->invoice_date = $request->invoice_date;
+        $invoiceHeader->invoice_amount = $request->invoice_amount;
+        $invoiceHeader->save();
+        
+        Session::flash('message', 'Invoice raised');
+        return Redirect::to('/InvoiceHeaders/');
     }
 
     /**

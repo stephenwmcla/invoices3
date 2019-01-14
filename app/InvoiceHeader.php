@@ -27,7 +27,7 @@ class InvoiceHeader extends Model {
      *
      * @var array
      */
-    protected $hidden = ['invoice_uid'];
+    protected $hidden = 'invoice_uid';
     protected $primaryKey = 'invoice_uid';
 
 }
