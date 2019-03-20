@@ -20,6 +20,8 @@ Route::get('/', function() {
 
 Route::resource('InvoiceHeaders', 'InvoiceHeaderController');
 
+Route::resource('InvoiceDetails', 'InvoiceDetailController');
+
 Route::resource('InvoiceStatuses','InvoiceStatusController');
 
 Route::resource('Clients','ClientsController');

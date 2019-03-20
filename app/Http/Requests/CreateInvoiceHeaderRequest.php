@@ -22,8 +22,7 @@ class CreateInvoiceHeaderRequest extends Request {
      */
     public function rules() {
         return [
-            'invoice_amount' => 'required|min:1|max:99999|numeric',
-            'invoice_date' => 'required|date',
+            'invoice_date' => 'required|date_format:d/m/Y',
         ];
     }
     

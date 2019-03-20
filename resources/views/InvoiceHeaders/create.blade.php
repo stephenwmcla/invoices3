@@ -2,7 +2,7 @@
 
 @section('content')
 <h3>Create Invoice</h3>
-{!! Form::open(array('url' => 'InvoiceHeader')) !!}
+{!! Form::open(array('url' => 'InvoiceHeaders')) !!}
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
     <span class='red'>Please fix the following errors</span>
@@ -25,7 +25,6 @@ echo Form::token();
             @endif
         </div></div>
     @include('field', ['fieldName' => 'invoice_date', 'fieldDesc' => 'Invoice Date'])
-    @include('field', ['fieldName' => 'invoice_amount', 'fieldDesc' => 'Invoice Amount'])
     <input type="submit" value='Submit' />
 
 </fieldset>

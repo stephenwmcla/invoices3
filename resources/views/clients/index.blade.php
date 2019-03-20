@@ -30,6 +30,7 @@
     </tr>
     @endforeach
 </table>
+<button onclick="window.location='/Clients/create'">Add Client</button>
 @stop
 
 <!-- php artisan serve --port=8080 -->

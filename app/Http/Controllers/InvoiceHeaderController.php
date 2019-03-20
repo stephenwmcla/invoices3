@@ -6,27 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\InvoiceHeader;
+use App\InvoiceDetail;
 use App\Client;
 use App\Http\Requests\CreateInvoiceHeaderRequest;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-
-/*
-
-  Route::post('createInvoice/submit', function(CreateInvoiceHeaderRequest $request) {
-
-  $validated = $request->validated();
-  if ($validated) {
-  echo "form looks good";
-  } else {
-  echo "form not so good";
-  }
-  $link = tap(new App\Link($data))->save();
-
-  return redirect('/');
-  });
-
- */
 
 class InvoiceHeaderController extends Controller {
 
@@ -62,14 +46,14 @@ class InvoiceHeaderController extends Controller {
         $clients = Client::find($request->client_id);
         $invoiceHeader->invoice_number = $clients->invoice_prefix . str_pad($clients->next_invoice_no, 3, "0", STR_PAD_LEFT);
         $invoiceHeader->invoice_date = $request->invoice_date;
-        $invoiceHeader->invoice_amount = $request->invoice_amount;
+        $invoiceHeader->invoice_amount = 0;
         $invoiceHeader->invoice_status = 0;
         $invoiceHeader->save();
         $clients->next_invoice_no++;
         $clients->save();
         
         Session::flash('message', 'Invoice raised');
-        return Redirect::to('/InvoiceHeaders/');
+        return Redirect::to('/InvoiceHeaders/' . $invoiceHeader->invoice_uid . "/edit/");
     }
 
     /**
@@ -94,7 +78,8 @@ class InvoiceHeaderController extends Controller {
     public function edit($id) {
         $invoiceHeader = InvoiceHeader::find($id);
         $clients = Client::lists('client_name', 'client_id');
-        return View('InvoiceHeaders.edit', array('invoiceHeader' => $invoiceHeader, 'clients' => $clients));
+        $invoiceDetail = InvoiceDetail::where('invoice_uid', '=', $invoiceHeader->invoice_uid)->get();
+        return View('InvoiceHeaders.edit', array('invoiceHeader' => $invoiceHeader, 'clients' => $clients, 'invoiceDetail' => $invoiceDetail));
     }
 
     /**
@@ -103,12 +88,11 @@ class InvoiceHeaderController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
+    public function update(CreateInvoiceHeaderRequest $request, $id) {
 
         $invoiceHeader = InvoiceHeader::find($id);
         $invoiceHeader->client_id = $request->client_id;
         $invoiceHeader->invoice_date = $request->invoice_date;
-        $invoiceHeader->invoice_amount = $request->invoice_amount;
         $invoiceHeader->save();
         
         Session::flash('message', 'Invoice raised');

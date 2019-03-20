@@ -1164,3 +1164,12 @@ td.calCell:Hover {
     color:red;
 }
 
+button {
+    background-color:#67BD5B;
+    padding:5px;
+    border:0px;
+    color:#eee;
+    cursor: pointer;
+    border-radius: 5px;
+    margin:1px;
+}

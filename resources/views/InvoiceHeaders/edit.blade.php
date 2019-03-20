@@ -15,7 +15,7 @@
         <div class="fieldLabel">
             <?php echo Form::label('client_id', 'Client Name'); ?></div>
         <div class="fieldData">
-            {!! Form::select('client_id', $clients, -1,['required', 'class' => 'form-control','placeholder'=>'-- Select Client --']); !!}
+            {!! Form::select('client_id', $clients, $invoiceHeader->client_id); !!}
             @if ($errors->has('client_id')) 
             <span class='red'> {{
                  $errors->first('client_id') }} </span>
@@ -23,9 +23,10 @@
         </div></div>
     @include('field', ['fieldName' => 'invoice_number', 'fieldDesc' => 'Invoice Number'])
     @include('field', ['fieldName' => 'invoice_date', 'fieldDesc' => 'Invoice Date'])
-    @include('field', ['fieldName' => 'invoice_amount', 'fieldDesc' => 'Invoice Amount'])
+    @include('displayField', ['fieldName' => $invoiceHeader->invoice_amount, 'fieldDesc' => 'Invoice Amount'])
     <input type="submit" value='Update' />
 
     {!! Form::close() !!}
 </fieldset>
+@include('InvoiceDetails.index')
 @endsection
